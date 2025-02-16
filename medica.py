@@ -9,17 +9,17 @@ class Aplicacion:
         self.root.title("Aplicación Médica")
         self.root.geometry("600x400")
 
-        # Crear base de datos y tablas si no existen
+        # Crearmos una base de datos y tablas si no existen
         self.conectar_db()
 
-        # Iniciar la interfaz de usuario
+        # Iniciarmos la interfaz de usuario
         self.iniciar_interfaz()
 
     def conectar_db(self):
         conn = sqlite3.connect("citas_medicas.db")
         cursor = conn.cursor()
 
-        # Crear tablas si no existen
+        # Crearmos las  tablas si no existen
         cursor.execute('''CREATE TABLE IF NOT EXISTS usuarios (
                             id INTEGER PRIMARY KEY AUTOINCREMENT,
                             nombre TEXT UNIQUE,
@@ -40,14 +40,14 @@ class Aplicacion:
         conn.commit()
         conn.close()
 
-        # Actualizar base de datos para agregar columna 'usuario' si no existe
+        # Actualizarmos las  base de datos para agregar columna 'usuario' si no existe
         self.actualizar_base_datos()
 
     def actualizar_base_datos(self):
         conn = sqlite3.connect("citas_medicas.db")
         cursor = conn.cursor()
 
-        # Verificar si la columna 'usuario' existe en la tabla 'citas'
+        # Verificarmos si la columna 'usuario' existe en la tabla 'citas'
         cursor.execute("PRAGMA table_info(citas)")
         columnas = [col[1] for col in cursor.fetchall()]
         
@@ -103,8 +103,8 @@ class Aplicacion:
         conn.close()
 
     def regresar(self, panel_actual):
-        panel_actual.destroy()  # Destruir el panel actual
-        self.iniciar_interfaz()  # Mostrar el panel de inicio nuevamente
+        panel_actual.destroy()  
+        self.iniciar_interfaz()  
 
     def abrir_panel_administrador(self):
         self.panel_inicio.destroy()
@@ -135,7 +135,7 @@ class Aplicacion:
 
         tk.Label(ventana, text="Seleccionar Médico", font=("Arial", 12)).pack(pady=10)
 
-        # Listado de médicos disponibles
+        # Lista de médicos 
         medicos = ["Dr. Juan Pérez", "Dr. Laura Gómez", "Dr. Carlos Díaz", "Dr. Trino Andrade", "Dr. Manuel Caicedo", "Dr. German Ruiz", "Dr. Fabiana León"]
         medicos_combo = tk.StringVar(value=medicos[0])
         tk.OptionMenu(ventana, medicos_combo, *medicos).pack(pady=10)
@@ -148,7 +148,7 @@ class Aplicacion:
 
         tk.Label(ventana, text="Fecha de la Cita", font=("Arial", 12)).pack(pady=10)
 
-        # Agregar calendario
+        # Agregarmos el  calendario
         cal = Calendar(ventana, selectmode='day', date_pattern='yyyy-mm-dd')
         cal.pack(pady=10)
 
@@ -206,14 +206,14 @@ class Aplicacion:
         fecha_actual = tree.item(selected_item)["values"][2]
         hora_actual = tree.item(selected_item)["values"][3]
 
-        # Crear ventana para modificar cita
+        # Crearmos una  ventana para modificar cita
         ventana_modificar = tk.Toplevel(self.root)
         ventana_modificar.title("Modificar Cita")
         ventana_modificar.geometry("500x400")
 
         tk.Label(ventana_modificar, text="Seleccionar Médico", font=("Arial", 12)).pack(pady=10)
 
-        # Listado de médicos disponibles
+        # Lista de médicos 
         medicos = ["Dr. Juan Pérez", "Dr. Laura Gómez", "Dr. Carlos Díaz", "Dr. Trino Andrade", "Dr. Manuel Caicedo", "Dr. German Ruiz", "Dr. Fabiana León"]
         medicos_combo = tk.StringVar(value=medico_actual)
         tk.OptionMenu(ventana_modificar, medicos_combo, *medicos).pack(pady=10)
@@ -226,7 +226,7 @@ class Aplicacion:
 
         tk.Label(ventana_modificar, text="Fecha de la Cita", font=("Arial", 12)).pack(pady=10)
 
-        # Agregar calendario
+        # Agregarmos el  calendario
         cal = Calendar(ventana_modificar, selectmode='day', date_pattern='yyyy-mm-dd', date=fecha_actual)
         cal.pack(pady=10)
 
